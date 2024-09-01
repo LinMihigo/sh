@@ -38,6 +38,7 @@ int main(int argc, char *argv[], char *envp[])
 			continue;
 		}
 
+<<<<<<< HEAD
 		pathname = (strchr(pathname, '/') ? args[0] : find_command(args[0], envp));
 		if (args[0] == NULL)
 		{
@@ -47,9 +48,13 @@ int main(int argc, char *argv[], char *envp[])
 			_free((void **)&str);
 			continue;
 		}
+=======
+		pathname = args[0];
+>>>>>>> 55ca014061082b86ad29b988874c530cdd61e331
 		if (exec_builtin(args, envp) == 1)
 			continue;
 		exec_external(pathname, args, envp);
+		
 		for (i = 0; args[i] != NULL; i++)
 			_free((void **)&args[i]);
 		_free((void **)&args);

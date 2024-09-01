@@ -53,13 +53,13 @@ int exec_builtin(char *args[], char **envp)
 *
 * Return: Void
 */
-
+// ! Needs fixing
 void exec_external(char *pathname, char *args[], char *envp[])
 {
 	pid_t pid;
 	int status, i;
 
-	pid = fork();
+	is_executable(pathname) && pid = fork();
 	if (pid == 0)
 	{
 		if (execve(pathname, args, envp) == -1)
@@ -70,13 +70,11 @@ void exec_external(char *pathname, char *args[], char *envp[])
 	}
 	else if (pid < 0)
 	{
-		perror("fork");
+		perror("forking");
 	}
 	else
 	{
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		waitpid(pid, &status, WUNTRACED);
 	}
 
 	for (i = 0; args[i]; i++)
