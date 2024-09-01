@@ -39,6 +39,14 @@ int main(int argc, char *argv[], char *envp[])
 		}
 
 		pathname = (strchr(pathname, '/') ? args[0] : find_command(args[0], envp));
+		if (args[0] == NULL)
+		{
+			for (i = 0; args[i] != NULL; i++)
+				_free((void **)&args[i]);
+			_free((void **)&args);
+			_free((void **)&str);
+			continue;
+		}
 		if (exec_builtin(args, envp) == 1)
 			continue;
 		exec_external(pathname, args, envp);
