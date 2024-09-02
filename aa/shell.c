@@ -11,48 +11,37 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char input[128];
+	char *input = NULL;
 	char *delim = DELIM;
 	char *str = NULL;
-	char *pathname = NULL;
+	char *comm = NULL;
 	char **args = NULL;
-	int i;
+	int cmd_count, exec;
 
 	(void)argc;
 	(void)argv;
-
+	cmd_count = 0;
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			display_prompt();
-
-		str = get_input(input, sizeof(input));
-		if (str == NULL)
-			continue;
-
-		args = string_tok(str, delim);
-		if (args == NULL || args[0] == NULL)
 		{
-			_free((void **)&str);
-			_free((void **)&args);
+			display_prompt();
+		}
+		str = get_input(input, sizeof(input));
+		cmd_count++;
+		args = string_tok(str, delim);
+		if (args[0] == NULL)
+		{
 			continue;
 		}
-
-		pathname = args[0];
-		if (exec_builtin(args, envp) == 1)
+		comm = args[0];
+		exec = exec_builtin(args, envp);
+		if (exec != 0)
 			continue;
-		exec_external(pathname, args, envp);
-
-		for (i = 0; args[i] != NULL; i++)
-			_free((void **)&args[i]);
-		_free((void **)&args);
+		if (env_function_caller(args) == 0)
+			exec_external(comm, args, envp, cmd_count);
+		free_resources(args);
 		_free((void **)&str);
 	}
-
-	for (i = 0; args[i] != NULL; i++)
-		_free((void **)&args[i]);
-	_free((void **)&args);
-	_free((void **)&str);
-
 	return (0);
 }
