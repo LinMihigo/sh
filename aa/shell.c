@@ -42,6 +42,11 @@ int main(int argc, char *argv[], char *envp[])
 			exec_external(comm, args, envp, cmd_count);
 		free_resources(args);
 		_free((void **)&str);
+		_free((void **)&input);
 	}
+	free_resources(args);
+	_free((void **)&str);
+	_free((void **)&input);
+
 	return (0);
 }
