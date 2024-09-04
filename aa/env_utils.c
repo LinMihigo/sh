@@ -84,7 +84,6 @@ char *get_env_var_value(char **env, char *var)
  */
 char **copy_environ(void)
 {
-	char **environ_copy;
 	int i, j, env_var_len, environ_size = env_size();
 
 	environ_copy = malloc(sizeof(char *) * (environ_size + 1));

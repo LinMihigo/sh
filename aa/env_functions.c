@@ -27,10 +27,12 @@ void get_env(void)
  */
 int set_env(char *var, char *val, int overwrite)
 {
-	char **environ_copy = copy_environ(), **temp;
-	int i, var_len;
+	int i, var_len, environ_copy_size;
 	char *new_var = _concat(var, val);
-	int environ_copy_size = get_env_size(environ_copy);
+
+	if (!environ_copy)
+		copy_environ();
+	environ_copy_size = get_env_size(environ_copy);
 
 	if (!var && _strcon(var, '=') != 0)
 		return (-1);
@@ -56,10 +58,9 @@ int set_env(char *var, char *val, int overwrite)
 	}
 	else
 	{
-		temp = realloc(environ_copy, sizeof(char *) * (environ_copy_size + 2));
-		if (!temp)
+		environ_copy = realloc(environ_copy, sizeof(char *) * (environ_copy_size + 2));
+		if (!environ_copy)
 			return (-1);
-		environ_copy = temp;
 		environ_copy[environ_copy_size] = new_var;
 		environ_copy[environ_copy_size + 1] = NULL;
 		environ_copy_size++;
@@ -76,7 +77,6 @@ int set_env(char *var, char *val, int overwrite)
  */
 int unset_env(char *var)
 {
-	char **environ_copy = copy_environ();
 	char *temp;
 	int i, var_len, environ_copy_size = get_env_size(environ_copy);
 
@@ -95,6 +95,9 @@ int unset_env(char *var)
 	while (i <= environ_copy_size)
 	{
 		temp = environ_copy[i + 1];
+		if (_strncmp(environ_copy[i], var, var_len) == 0 &&
+			environ_copy[i][var_len] == '=')
+			_free((void **)&environ_copy[i]);
 		environ_copy[i] = temp;
 		environ_copy_size--;
 		i++;

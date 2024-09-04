@@ -15,6 +15,9 @@
 #define TOKEN_ARRAY_SIZE 20
 #define DELIM " \t\n"
 
+/* Global variables */
+char **environ_copy;
+
 /* prompt.c */
 void display_prompt(void);
 

@@ -95,7 +95,7 @@ char *_concatenate(char *dir, char *comm)
  */
 char *find_ext_file(char *comm, char **envp)
 {
-	char *dir = NULL;
+	char *dir;
 	char *env_path = NULL;
 	char *comm_path = NULL;
 

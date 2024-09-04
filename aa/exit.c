@@ -18,5 +18,6 @@ void exit_function(char *args[])
 	for (i = 0; args[i] != NULL; i++)
 		_free((void **)&args[i]);
 	_free((void **)&args);
+	free_resources(environ_copy);
 	exit(status);
 }

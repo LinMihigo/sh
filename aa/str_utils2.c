@@ -63,6 +63,7 @@ char **string_tok(char *str, char *delim)
 	if (!tokens)
 	{
 		perror("malloc");
+		free_resources(tokens);
 		return (NULL);
 	}
 
