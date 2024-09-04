@@ -9,15 +9,13 @@
 
 void exit_function(char *args[])
 {
-	int status, i;
+	int status;
 
 	if (args[1] != NULL)
 		status = atoi(args[1]);
 	else
 		status = 0;
-	for (i = 0; args[i] != NULL; i++)
-		_free((void **)&args[i]);
-	_free((void **)&args);
+	free_resources(args);
 	free_resources(environ_copy);
 	exit(status);
 }

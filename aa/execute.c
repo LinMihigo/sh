@@ -47,7 +47,7 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 		{
 			perror("Fork Error");
 			_free((void **)&comm_path);
-			exit(EXIT_FAILURE);
+			exit_function(args);
 		}
 		else if (child_pid == 0)
 		{
@@ -55,7 +55,7 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 			{
 				perror("execve");
 				_free((void **)&comm_path);
-				exit(EXIT_FAILURE);
+				exit_function(args);
 			}
 		}
 		else
@@ -66,6 +66,8 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 		_free((void **)&comm_path);
 	}
 	else
+	{
 		fprintf(stderr, "simple_shell: %d: %s: not found\n", cmd_count, comm);
-	_free((void **)&comm_path);
+		_free((void **)&comm_path);
+	}
 }
