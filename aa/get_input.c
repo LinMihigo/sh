@@ -8,24 +8,25 @@
  * Return: Void
  */
 
-char *get_input(char *lineptr, size_t len)
+void get_input()
 {
 	ssize_t char_read;
+	size_t len;
 
-	lineptr = NULL;
-	len = 0;
-	char_read = getline(&lineptr, &len, stdin);
+	input = NULL;
+	len = sizeof(input);
+	char_read = getline(&input, &len, stdin);
 	if (char_read == -1)
 	{
 		if (feof(stdin))
 		{
-			free(lineptr);
+			free(input);
 			/*	write(STDOUT_FILENO, "\n", 1);	*/
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			free(lineptr);
+			free(input);
 			perror("Getline Error");
 			exit(EXIT_FAILURE);
 		}
@@ -35,6 +36,4 @@ char *get_input(char *lineptr, size_t len)
 	/*{*/
 	/*	lineptr[char_read - 1] = '\0';*/
 	/*}*/
-
-	return (lineptr);
 }

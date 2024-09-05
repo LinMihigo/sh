@@ -37,8 +37,8 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 {
 	pid_t child_pid;
 	int status;
-	char *comm_path = find_ext_file(comm, envp);
 
+	find_ext_file(comm, envp);
 	if (comm_path)
 	{
 		printf("%s\n", comm_path);

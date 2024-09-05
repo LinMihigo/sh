@@ -63,8 +63,9 @@ char *get_env_path(char **envp, int size)
 char *_concatenate(char *dir, char *comm)
 {
 	size_t i, j, k, dir_len = _strlen(dir), comm_len = _strlen(comm);
-	char *comm_path = NULL;
 
+	if (comm_path)
+		_free((void **)&comm_path);
 	comm_path = malloc(sizeof(char) * (dir_len + comm_len + 2));
 	if (!comm_path)
 	{
@@ -97,7 +98,6 @@ char *find_ext_file(char *comm, char **envp)
 {
 	char *dir;
 	char *env_path = NULL;
-	char *comm_path = NULL;
 
 	env_path = get_env_var_value(envp, "PATH");
 	dir = strtok(env_path, ":");

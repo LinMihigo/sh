@@ -17,12 +17,14 @@
 
 /* Global variables */
 char **environ_copy;
+char *input;
+char *comm_path;
 
 /* prompt.c */
 void display_prompt(void);
 
 /* get_input.c */
-char *get_input(char *lineptr, size_t len);
+void get_input();
 
 /* _free.c */
 void _free(void **ptr);

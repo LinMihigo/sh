@@ -11,9 +11,7 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char *input = NULL;
 	char *delim = DELIM;
-	char *str = NULL;
 	char *comm = NULL;
 	char **args = NULL;
 	int cmd_count, exec;
@@ -27,9 +25,10 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			display_prompt();
 		}
-		str = get_input(input, sizeof(input));
+		get_input();
+		printf("str: %s\n", input);
 		cmd_count++;
-		args = string_tok(str, delim);
+		args = string_tok(input, delim);
 		if (args[0] == NULL)
 		{
 			continue;
@@ -41,11 +40,10 @@ int main(int argc, char *argv[], char *envp[])
 		if (env_function_caller(args) == 0)
 			exec_external(comm, args, envp, cmd_count);
 		free_resources(args);
-		_free((void **)&str);
 		_free((void **)&input);
+		printf("input after freeing memory: %s\n", input);
 	}
 	free_resources(args);
-	_free((void **)&str);
 	_free((void **)&input);
 
 	return (0);

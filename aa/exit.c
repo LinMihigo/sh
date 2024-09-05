@@ -17,5 +17,6 @@ void exit_function(char *args[])
 		status = 0;
 	free_resources(args);
 	free_resources(environ_copy);
+	_free((void **)&input);
 	exit(status);
 }

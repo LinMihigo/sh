@@ -11,7 +11,7 @@ Welcome to our custom implementation of the Bourne Shell (`sh`). This project is
 ### Compilation
 To compile the shell, use the following command:
 ```bash
-$ gcc -Wall -Werror -pedantic -Wextra -std=gnu89 *.c
+$ gcc -Wall -Werror -pedantic -Wextra -std=gnu89 *.c -o hsh
 ```
 ### Usage
 Once compiled, you can start the shell by running
