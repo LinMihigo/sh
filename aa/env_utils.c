@@ -61,12 +61,9 @@ char *get_env_var_value(char **env, char *var)
 {
 	int i, k;
 	size_t j, var_len = _strlen(var);
-	char *value = NULL;
 	int var_val_len = get_env_var_value_len(env, var);
+	char *value = malloc(sizeof(char) * (var_val_len + 1));
 
-	value = malloc(sizeof(char) * (var_val_len + 1));
-	if (!value)
-		perror("get_env_var_value: malloc failed");
 	value[var_val_len] = '\0';
 	for (i = 0; env[i] != NULL; i++)
 	{
