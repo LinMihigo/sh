@@ -96,13 +96,14 @@ char *_concatenate(char *dir, char *comm)
  */
 char *find_ext_file(char *comm, char **envp)
 {
-	char *dir = NULL;
+	char *dir;
 	char *env_path = NULL;
 
 	if (env_path)
 		_free((void **)&env_path);
 	else
 		env_path = get_env_var_value(envp, "PATH");
+	printf("env_path: %s\n", env_path);
 	dir = strtok(env_path, ":");
 	while (dir != NULL)
 	{
