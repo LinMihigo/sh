@@ -19,6 +19,7 @@ int main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	cmd_count = 0;
+	signal(SIGINT, handle_sigint);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -26,7 +27,6 @@ int main(int argc, char *argv[], char *envp[])
 			display_prompt();
 		}
 		get_input();
-		printf("str: %s\n", input);
 		cmd_count++;
 		args = string_tok(input, delim);
 		if (args[0] == NULL)
@@ -41,7 +41,6 @@ int main(int argc, char *argv[], char *envp[])
 			exec_external(comm, args, envp, cmd_count);
 		free_resources(args);
 		_free((void **)&input);
-		printf("input after freeing memory: %s\n", input);
 	}
 	free_resources(args);
 	_free((void **)&input);

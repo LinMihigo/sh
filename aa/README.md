@@ -16,7 +16,7 @@ $ gcc -Wall -Werror -pedantic -Wextra -std=gnu89 *.c -o hsh
 ### Usage
 Once compiled, you can start the shell by running
 ```bash
-./a.out
+./hsh
 ```
 ### Example commands
 Here are a few basic commands you can try with our custom shell:

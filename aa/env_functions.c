@@ -47,7 +47,6 @@ int set_env(char *var, char *val, int overwrite)
 			{
 				return (0);
 			}
-			printf("%d\n", i);
 			break;
 		}
 	}

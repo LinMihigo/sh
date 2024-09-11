@@ -59,21 +59,17 @@ int get_env_var_value_len(char **env, char *var)
  */
 char *get_env_var_value(char **env, char *var)
 {
-	int i, k;
-	size_t j, var_len = _strlen(var);
-	int var_val_len = get_env_var_value_len(env, var);
-	char *value = malloc(sizeof(char) * (var_val_len + 1));
+	int i;
+	size_t var_len = _strlen(var);
 
-	value[var_val_len] = '\0';
 	for (i = 0; env[i] != NULL; i++)
 	{
 		if (_strncmp(env[i], var, var_len) == 0 && env[i][var_len] == '=')
 		{
-			for (j = var_len + 1, k = 0; env[i][j] != '\0'; j++, k++)
-				value[k] = env[i][j];
+			return (_strdup(env[i] + var_len + 1));
 		}
 	}
-	return (value);
+	return (NULL);
 }
 /**
  * copy_environ - create a copy of environ

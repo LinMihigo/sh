@@ -20,3 +20,15 @@ void exit_function(char *args[])
 	_free((void **)&input);
 	exit(status);
 }
+
+/**
+ * handle_sigint - handle exit at Ctrl + C
+ * @sig: Int representing the signal that was caught by the OS
+ * Return: void
+ */
+void handle_sigint(int sig)
+{
+	free_resources(environ_copy);
+	_free((void **)&input);
+	exit(sig);
+}

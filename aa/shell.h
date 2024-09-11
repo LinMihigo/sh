@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <limits.h>
+#include <signal.h>
 
 #define TOKEN_ARRAY_SIZE 20
 #define DELIM " \t\n"
@@ -20,11 +21,13 @@ char **environ_copy;
 char *input;
 char *comm_path;
 
+void handle_sigint(int sig);
+
 /* prompt.c */
 void display_prompt(void);
 
 /* get_input.c */
-void get_input();
+void get_input(void);
 
 /* _free.c */
 void _free(void **ptr);

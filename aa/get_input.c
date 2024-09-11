@@ -2,13 +2,11 @@
 
 /**
  * get_input - Gets input from the commandline
- * @lineptr: The pointer to the command string
- * @len: Size of string
  *
  * Return: Void
  */
 
-void get_input()
+void get_input(void)
 {
 	ssize_t char_read;
 	size_t len;
@@ -20,13 +18,13 @@ void get_input()
 	{
 		if (feof(stdin))
 		{
-			free(input);
+			_free((void **)&input);
 			/*	write(STDOUT_FILENO, "\n", 1);	*/
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			free(input);
+			_free((void **)&input);
 			perror("Getline Error");
 			exit(EXIT_FAILURE);
 		}
@@ -37,3 +35,28 @@ void get_input()
 	/*	lineptr[char_read - 1] = '\0';*/
 	/*}*/
 }
+
+/**
+ * Signal handling
+void handle_sigint(int sig)
+{
+	printf("\nCaught signal %d (SIGINT). Interrupt ignored.\n", sig);
+	printf("Type 'exit' to quit the shell.\n");
+}
+
+int main() {
+	signal(SIGINT, handle_sigint);
+
+	while (1) {
+		printf("myshell> ");
+		char input[100];
+		fgets(input, sizeof(input), stdin);
+
+		if (strcmp(input, "exit\n") == 0) {
+			printf("Exiting shell...\n");
+			break;
+		}
+	}
+	return 0;
+}
+ */

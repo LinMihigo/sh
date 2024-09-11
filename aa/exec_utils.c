@@ -41,7 +41,7 @@ char *get_env_path(char **envp, int size)
 	path[size] = '\0';
 	while (envp[i] != NULL)
 	{
-		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T' && envp[i][3] == 'H')
+		if (_strncmp(envp[i], "PATH=", _strlen("PATH=")) == 0)
 		{
 			while (envp[i][j++] != '\0')
 				path[k++] = envp[i][j];
@@ -55,7 +55,7 @@ char *get_env_path(char **envp, int size)
 /**
  * _concatenate - Concatenate strings
  * @dir: Executable directory
- * @pathname: Command name
+ * @comm: Command name
  *
  * Return: Full path to command path
  */
@@ -88,9 +88,8 @@ char *_concatenate(char *dir, char *comm)
 
 /**
  * find_ext_file - Find external command file
- * @pathname: The command to search for
+ * @comm: The command to search for
  * @envp: Environment variable
- * @cmd_count: Count of commands entered in each shell session
  *
  * Return: Path to command
  */
@@ -103,7 +102,6 @@ char *find_ext_file(char *comm, char **envp)
 		_free((void **)&env_path);
 	else
 		env_path = get_env_var_value(envp, "PATH");
-	printf("env_path: %s\n", env_path);
 	dir = strtok(env_path, ":");
 	while (dir != NULL)
 	{

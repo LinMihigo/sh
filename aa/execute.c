@@ -25,7 +25,7 @@ int exec_builtin(char *args[], char **envp)
 
 /**
  * exec_external - Executes external commands
- * @pathname: Program to execute
+ * @comm: Program to execute
  * @args: Array of commandline arguments
  * @envp: Pointer to array of environment variables
  * @cmd_count: Count of commands entered in each shell session
@@ -41,7 +41,6 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 	find_ext_file(comm, envp);
 	if (comm_path)
 	{
-		printf("%s\n", comm_path);
 		child_pid = fork();
 		if (child_pid == -1)
 		{
