@@ -17,6 +17,7 @@ int exec_builtin(char *args[], char **envp)
 		if (strcmp(args[0], "cd") == 0)
 		{
 			cd_exec(args, envp);
+			_free((void **)&input);
 			return (1);
 		}
 	}

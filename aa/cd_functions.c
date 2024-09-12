@@ -67,20 +67,25 @@ int cd_exec(char *args[], char **envp)
 		if (path == NULL)
 		{
 			fprintf(stderr, "cd: no home directory\n");
+			free_resources(args);
 			return (-1);
 		}
 		if (chdir(path) != 0)
 		{
 			perror("cd");
+			free_resources(args);
 			return (-1);
 		}
 		set_pwd();
+		free_resources(args);
 		return (1);
 	}
 	if (args[1] != NULL)
 	{
 		cd_args(args, envp);
+		free_resources(args);
 		return (1);
 	}
+	free_resources(args);
 	return (0);
 }
