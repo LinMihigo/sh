@@ -98,6 +98,8 @@ char *find_ext_file(char *comm, char **envp)
 	char *dir;
 	char *env_path = NULL;
 
+	if (comm_path)
+		_free((void **)&comm_path);
 	if (env_path)
 		_free((void **)&env_path);
 	else

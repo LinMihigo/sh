@@ -75,7 +75,6 @@ char **string_tok(char *str, char *delim)
 		{
 			perror("strdup");
 			free_resources(tokens);
-			/* Consider just break; */
 			return (NULL);
 		}
 		position++;

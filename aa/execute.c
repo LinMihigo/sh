@@ -47,6 +47,7 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 		{
 			perror("Fork Error");
 			_free((void **)&comm_path);
+			printf("child_process = -1 - Double free\n");
 			exit_function(args);
 		}
 		else if (child_pid == 0)
@@ -55,6 +56,7 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 			{
 				perror("execve");
 				_free((void **)&comm_path);
+				printf("child_process = 0 - Double free\n");
 				exit_function(args);
 			}
 		}
@@ -63,7 +65,6 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 			wait(&status);
 			_free((void **)&comm_path);
 		}
-		_free((void **)&comm_path);
 	}
 	else
 	{

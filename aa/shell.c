@@ -30,9 +30,7 @@ int main(int argc, char *argv[], char *envp[])
 		cmd_count++;
 		args = string_tok(input, delim);
 		if (args[0] == NULL)
-		{
 			continue;
-		}
 		comm = args[0];
 		exec = exec_builtin(args, envp);
 		if (exec != 0)
@@ -42,8 +40,6 @@ int main(int argc, char *argv[], char *envp[])
 		free_resources(args);
 		_free((void **)&input);
 	}
-	free_resources(args);
-	_free((void **)&input);
 
 	return (0);
 }

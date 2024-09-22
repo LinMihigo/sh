@@ -15,9 +15,12 @@ void exit_function(char *args[])
 		status = atoi(args[1]);
 	else
 		status = 0;
-	free_resources(args);
-	free_resources(environ_copy);
-	_free((void **)&input);
+	if (args != NULL)
+		free_resources(args);
+	if (environ_copy)
+		free_resources(environ_copy);
+	if (input)
+		_free((void **)&input);
 	exit(status);
 }
 
