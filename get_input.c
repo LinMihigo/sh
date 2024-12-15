@@ -9,16 +9,40 @@
 */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
-	int fd = fileno(stream);
-	void *buf = malloc(1024);
+	ssize_t count = 0;
+	int c;
+	char *temp;
 
-	read(fd, buf, sizeof(buf));
-	*lineptr = _strdup(buf);
+	if (!lineptr || !n || !stream)
+		return (-1);
 
-	*n = sizeof(*lineptr);
-	free(buf);
+	if (*lineptr == NULL || *n == 0)
+	{
+		*n = 128;
+		*lineptr = malloc(*n);
+		if (!*lineptr)
+			return (-1);
+	}
 
-	return ((ssize_t)n);
+	while ((c = fgetc(stream)) != EOF)
+	{
+		if (count + 1 >= (ssize_t)*n)
+		{
+			*n *= 2;
+			temp = realloc(*lineptr, *n);
+			if (!temp)
+				return (-1);
+			*lineptr = temp;
+		}
+		(*lineptr)[count++] = c;
+		if (c == '\n')
+			break;
+	}
+	if (count == 0)
+		return (-1);
+
+	(*lineptr)[count] = '\0';
+	return (count);
 }
 
 /**

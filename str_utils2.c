@@ -70,6 +70,12 @@ char **string_tok(char *str, char *delim)
 	token = strtok(str, delim);
 	while (token != NULL)
 	{
+		if (token[0] == '"' && token[_strlen(token) - 1] == '"')
+		{
+			memmove(token, token + 1, _strlen(token) - 2);
+			token[_strlen(token) - 2] = '\0';
+		}
+
 		tokens[position] = _strdup(token);
 		if (!tokens[position])
 		{

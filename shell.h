@@ -55,7 +55,8 @@ void free_resources(char **args);
 
 /* execute.c */
 int exec_builtin(char *args[], char **envp);
-void exec_external(char *comm, char *args[], char *envp[], int cmd_count);
+void exec_external(char *comm, char *args[], char *shell, char *envp[],
+int cmd_count);
 
 /* exec_utils.c */
 int _path_size(char **envp);

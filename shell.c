@@ -17,7 +17,7 @@ int main(int argc, char *argv[], char *envp[])
 	int cmd_count, exec;
 
 	(void)argc;
-	(void)argv;
+
 	cmd_count = 0;
 	signal(SIGINT, handle_sigint);
 	while (1)
@@ -40,7 +40,7 @@ int main(int argc, char *argv[], char *envp[])
 		if (exec != 0)
 			continue;
 		if (env_function_caller(args) == 0)
-			exec_external(comm, args, envp, cmd_count);
+			exec_external(comm, args, argv[0], envp, cmd_count);
 		free_resources(args);
 		_free((void **)&glob.input);
 	}

@@ -28,13 +28,15 @@ int exec_builtin(char *args[], char **envp)
  * exec_external - Executes external commands
  * @comm: Program to execute
  * @args: Array of commandline arguments
+ * @shell: name of shell
  * @envp: Pointer to array of environment variables
  * @cmd_count: Count of commands entered in each shell session
  *
  * Return: Void
  */
 
-void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
+void exec_external(char *comm, char *args[], char *shell, char *envp[],
+int cmd_count)
 {
 	pid_t child_pid;
 	int status;
@@ -68,7 +70,16 @@ void exec_external(char *comm, char *args[], char *envp[], int cmd_count)
 	}
 	else
 	{
-		fprintf(stderr, "simple_shell: %d: %s: not found\n", cmd_count, comm);
+		fprintf(stderr, "%s: %d: %s: not found\n", shell, cmd_count, comm);
 		_free((void **)&glob.comm_path);
+
+		if (args != NULL)
+		free_resources(args);
+		if (glob.environ_copy)
+			free_resources(glob.environ_copy);
+		if (glob.input)
+			_free((void **)&glob.input);
+
+		exit(127);
 	}
 }
