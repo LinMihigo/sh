@@ -47,6 +47,7 @@ void display_prompt(void);
 
 /* get_input.c */
 void get_input(void);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 /* _free.c */
 void _free(void **ptr);

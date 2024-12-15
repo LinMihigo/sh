@@ -16,6 +16,8 @@ gcc -Wall -Werror -pedantic -Wextra -std=gnu89 *.c -o hsh
 ### Testing
 ```
 cd automated_checker && ./run ../hsh ./checker tests/simple_shell_0.1
+# or
+cd automated_checker && ../checker ../hsh tests/simple_shell_0.1/test_file(s)
 ```
 ### Usage
 Once compiled, you can start the shell by running

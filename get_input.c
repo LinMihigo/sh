@@ -1,7 +1,28 @@
 #include "shell.h"
 
 /**
- * get_input - Gets glob.input from the commandline
+* _getline - custom getline function
+* @lineptr: pointer addr. to buffer containing line read from stream
+* @n: size of buffer
+* @stream: input source
+* Return: number of chars read
+*/
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
+{
+	int fd = fileno(stream);
+	void *buf = malloc(1024);
+
+	read(fd, buf, sizeof(buf));
+	*lineptr = _strdup(buf);
+
+	*n = sizeof(*lineptr);
+	free(buf);
+
+	return ((ssize_t)n);
+}
+
+/**
+ * get_input - Gets input from the commandline
  *
  * Return: Void
  */
@@ -9,7 +30,7 @@
 void get_input(void)
 {
 	ssize_t char_read;
-	size_t len;
+	size_t len = 0;
 
 	glob.input = NULL;
 	len = sizeof(glob.input);
