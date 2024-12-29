@@ -10,7 +10,7 @@
 
 int cd_args(char **args, char **envp)
 {
-	const char *path;
+	char *path = NULL;
 	char buf[1024];
 	int size;
 
@@ -25,6 +25,7 @@ int cd_args(char **args, char **envp)
 		chdir(path);
 		getcwd(buf, sizeof(buf));
 		setenv("PWD", buf, 1);
+		free(path);
 		return (1);
 	}
 	else

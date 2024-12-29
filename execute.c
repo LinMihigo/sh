@@ -39,47 +39,40 @@ void exec_external(char *comm, char *args[], char *shell, char *envp[],
 int cmd_count)
 {
 	pid_t child_pid;
-	int status;
 
 	find_ext_file(comm, envp);
 	if (glob.comm_path)
 	{
 		child_pid = fork();
+
 		if (child_pid == -1)
 		{
 			perror("Fork Error");
 			_free((void **)&glob.comm_path);
-			printf("child_process = -1 - Double free\n");
-			exit_function(args);
 		}
-		else if (child_pid == 0)
+		if (child_pid == 0)
 		{
 			if ((execve(glob.comm_path, args, envp) == -1))
 			{
-				perror("execve");
+				perror("execve failed");
 				_free((void **)&glob.comm_path);
-				printf("child_process = 0 - Double free\n");
-				exit_function(args);
+				exit(EXIT_FAILURE);
 			}
 		}
-		else
-		{
-			wait(&status);
-			_free((void **)&glob.comm_path);
-		}
+		wait(&glob.status);
+		_free((void **)&glob.comm_path);
+
 	}
 	else
 	{
 		fprintf(stderr, "%s: %d: %s: not found\n", shell, cmd_count, comm);
 		_free((void **)&glob.comm_path);
-
 		if (args != NULL)
 		free_resources(args);
 		if (glob.environ_copy)
 			free_resources(glob.environ_copy);
 		if (glob.input)
 			_free((void **)&glob.input);
-
 		exit(127);
 	}
 }

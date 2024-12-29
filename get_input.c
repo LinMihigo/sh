@@ -9,48 +9,51 @@
 */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
-	ssize_t count = 0;
+	size_t charcount = 0, new_size;
 	int c;
-	char *temp;
+	char *new_ptr = NULL;
 
 	if (!lineptr || !n || !stream)
 		return (-1);
 
-	if (*lineptr == NULL || *n == 0)
+	if (!*lineptr)
 	{
-		*n = 128;
-		*lineptr = malloc(*n);
+		*lineptr = malloc(128);
 		if (!*lineptr)
 			return (-1);
+		*n = 128;
 	}
 
 	while ((c = fgetc(stream)) != EOF)
 	{
-		if (count + 1 >= (ssize_t)*n)
+		if (charcount + 1 >= *n)
 		{
-			*n *= 2;
-			temp = realloc(*lineptr, *n);
-			if (!temp)
+			new_size = *n * 2;
+			new_ptr = realloc(*lineptr, new_size);
+
+			if (!new_ptr)
 				return (-1);
-			*lineptr = temp;
+			*lineptr = new_ptr;
+			*n = new_size;
 		}
-		(*lineptr)[count++] = c;
+		(*lineptr)[charcount++] = c;
 		if (c == '\n')
 			break;
 	}
-	if (count == 0)
+
+	if (charcount == 0 && c == EOF)
 		return (-1);
 
-	(*lineptr)[count] = '\0';
-	return (count);
+	(*lineptr)[charcount] = '\0';
+	return ((ssize_t)charcount);
 }
+
 
 /**
  * get_input - Gets input from the commandline
  *
  * Return: Void
  */
-
 void get_input(void)
 {
 	ssize_t char_read;

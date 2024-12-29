@@ -48,7 +48,7 @@ char *_strcat(char *dest, char *src)
 	return (start);
 }
 /**
- * string_tok - Calls and implements strtok function
+ * string_tok - Calls and implements _strtok function
  * @str: Command string
  * @delim: Delimiter string
  *
@@ -67,7 +67,7 @@ char **string_tok(char *str, char *delim)
 		return (NULL);
 	}
 
-	token = strtok(str, delim);
+	token = _strtok(str, delim);
 	while (token != NULL)
 	{
 		if (token[0] == '"' && token[_strlen(token) - 1] == '"')
@@ -84,7 +84,7 @@ char **string_tok(char *str, char *delim)
 			return (NULL);
 		}
 		position++;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	tokens[position] = NULL;
 

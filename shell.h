@@ -14,11 +14,10 @@
 #include <signal.h>
 
 /**
-* * Task 0 - 4 pass tests
+* * Task 0 - 7 pass tests
 * * Task 10 passes tests
-* TODO-1: env/setenv/unsetenv might be ok. (Need to submit and see)
-* TODO-2: implement getline and strtok
-* TODO-3: Handling comments, files and variables
+* TODO-1: setenv/unsetenv might be ok. (Need to submit and see)
+* TODO-2: Handling comments, files and variables
 */
 
 #define TOKEN_ARRAY_SIZE 20
@@ -31,12 +30,14 @@
 * @environ_copy: copy of environ
 * @input: glob.input from command line
 * @comm_path: path of current command
+* @status: exit status
 */
 struct Global
 {
 	char **environ_copy;
 	char *input;
 	char *comm_path;
+	int status;
 } glob;
 
 /* shell.c */
@@ -85,6 +86,9 @@ void exit_function(char *args[]);
 int set_oldpwd(void);
 int set_pwd(void);
 int cd_exec(char *args[], char **envp);
+
+/* strtok.c */
+char *_strtok(char *str, const char *delim);
 
 /* str_utils.c */
 size_t _strlen(char *str);
