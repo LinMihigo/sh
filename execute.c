@@ -4,11 +4,13 @@
  * exec_builtin - Executes built-in commands
  * @args: Array of command-line arguments
  * @envp: Pointer to environment variables
+ * @shell: name of the running shell
+ * @cmd_count: Count of commands entered in each shell session
  *
  * Return: Void
  */
 
-int exec_builtin(char *args[], char **envp)
+int exec_builtin(char *args[], char **envp, char *shell, int cmd_count)
 {
 	if (args[0] != NULL)
 	{
@@ -16,7 +18,7 @@ int exec_builtin(char *args[], char **envp)
 			exit_function(args);
 		if (strcmp(args[0], "cd") == 0)
 		{
-			cd_exec(args, envp);
+			cd_exec(args, envp, shell, cmd_count);
 			_free((void **)&glob.input);
 			return (1);
 		}

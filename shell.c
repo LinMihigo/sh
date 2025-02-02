@@ -36,7 +36,7 @@ int main(int argc, char *argv[], char *envp[])
 			continue;
 		}
 		comm = args[0];
-		exec = exec_builtin(args, envp);
+		exec = exec_builtin(args, envp, argv[0], cmd_count);
 		if (exec != 0)
 			continue;
 		if (env_function_caller(args) == 0)

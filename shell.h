@@ -55,7 +55,7 @@ void _free(void **ptr);
 void free_resources(char **args);
 
 /* execute.c */
-int exec_builtin(char *args[], char **envp);
+int exec_builtin(char *args[], char **envp, char *shell, int cmd_count);
 void exec_external(char *comm, char *args[], char *shell, char *envp[],
 int cmd_count);
 
@@ -77,7 +77,7 @@ char *get_oldpwd_path(char **envp, int size);
 int oldpwd_path_size(char **envp);
 
 /* cd_functions */
-int cd_args(char **args, char **envp);
+int cd_args(char **args, char **envp, char *shell, int cmd_count);
 
 /* exit.c */
 void exit_function(char *args[]);
@@ -85,8 +85,7 @@ void exit_function(char *args[]);
 /* cd_args.c */
 int set_oldpwd(void);
 int set_pwd(void);
-int cd_exec(char *args[], char **envp);
-
+int cd_exec(char *args[], char **envp, char *shell, int cmd_count);
 /* strtok.c */
 char *_strtok(char *str, const char *delim);
 
